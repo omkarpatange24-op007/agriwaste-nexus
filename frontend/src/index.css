@@ -1344,3 +1344,50 @@ body {
     font-size: 0.75rem;
   }
 }
+/* =====================================================
+   🔥 MOBILE LAYOUT STACK FIX (DASHBOARD)
+   ===================================================== */
+
+@media (max-width: 768px) {
+
+  /* Make everything stack vertically */
+  .page-body {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  /* Slideshow full width */
+  .slideshow-wrap,
+  .slide-main {
+    width: 100%;
+  }
+
+  /* Cards stack properly */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Results stack */
+  .results-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Marketplace stack */
+  .marketplace-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Prevent any element overflow */
+  .card,
+  .stat-card,
+  .listing-card {
+    width: 100%;
+  }
+
+  /* Fix large spacing */
+  .page-body {
+    padding: 12px;
+  }
+}
