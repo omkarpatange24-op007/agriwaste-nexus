@@ -1229,3 +1229,118 @@ h1, h2, h3, h4 {
     display: flex;
   }
 }
+
+/* 🔥 RESPONSIVE FIX MAIN */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 240px;
+  }
+
+  .main-content {
+    margin-left: 0 !important;
+  }
+
+  .page-header {
+    padding: 12px 16px;
+  }
+
+  .page-body {
+    padding: 12px;
+  }
+}
+
+/* =====================================================
+   🔥 RESPONSIVE FIXES (MINIMAL – DO NOT CHANGE DESIGN)
+   ===================================================== */
+
+//* Allow scroll on desktop */
+body {
+  overflow-x: auto;
+}
+
+/* Prevent overflow only on mobile */
+@media (max-width: 768px) {
+  body {
+    overflow-x: hidden;
+  }
+}
+/* Mobile adjustments */
+@media (max-width: 768px) {
+
+  /* Sidebar */
+  .sidebar {
+    width: 240px;
+    transform: translateX(-100%);
+  }
+
+  .sidebar-mobile-open {
+    transform: translateX(0) !important;
+  }
+
+  /* Main content */
+  .main-content {
+    margin-left: 0 !important;
+  }
+
+  /* Header padding */
+  .page-header {
+    padding: 12px 16px;
+  }
+
+  /* Page body spacing */
+  .page-body {
+    padding: 12px;
+  }
+
+  /* Logo size fix */
+  .header-logo {
+    width: 45px;
+    height: 45px;
+  }
+
+  /* Header text smaller */
+  .header-title {
+    font-size: 0.9rem;
+  }
+
+  .header-hindi {
+    font-size: 0.6rem;
+  }
+
+  .header-satyamev {
+    font-size: 0.55rem;
+  }
+
+  /* Grid fix */
+  .stats-grid,
+  .marketplace-grid,
+  .results-grid,
+  .form-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Buttons full width */
+  .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* Prevent input zoom issue */
+  input, select {
+    font-size: 16px;
+  }
+
+  /* Slideshow fix */
+  .slide-main {
+    height: 200px;
+    padding: 16px;
+  }
+
+  .slide-title {
+    font-size: 1rem;
+  }
+
+  .slide-subtitle {
+    font-size: 0.75rem;
+  }
+}
