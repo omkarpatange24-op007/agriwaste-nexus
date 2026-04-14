@@ -43,8 +43,8 @@ export default function Sidebar({ activePage, setPage, sidebarOpen, setSidebarOp
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
             <div>
               <span className="leaf">🌿</span>
-              <h1>{t('appName')}</h1>
-              <p>{t('appTagline')}</p>
+              <h1>AgriWaste Nexus</h1>
+<p>Smart Agricultural Waste Management</p>
             </div>
             {/* ✅ Close button — only on mobile */}
             <button
