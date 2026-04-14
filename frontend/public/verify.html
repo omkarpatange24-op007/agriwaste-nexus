@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AgriWaste Nexus — Farmer Verification</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #1a3d1f, #2C5F2D);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .card {
+      background: white;
+      border-radius: 20px;
+      padding: 32px 28px;
+      max-width: 400px;
+      width: 100%;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 2px solid #e5e7eb;
+    }
+    .logo {
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(135deg, #2C5F2D, #4CAF50);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+    }
+    .header-text h1 {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: #111827;
+    }
+    .header-text p {
+      font-size: 0.75rem;
+      color: #6b7280;
+      margin-top: 2px;
+    }
+    .verified-badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #d1fae5;
+      color: #065f46;
+      padding: 10px 16px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      font-weight: 700;
+      font-size: 0.88rem;
+    }
+    .info-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid #f3f4f6;
+      font-size: 0.88rem;
+    }
+    .info-row:last-child { border-bottom: none; }
+    .info-label {
+      color: #6b7280;
+      font-weight: 500;
+    }
+    .info-value {
+      color: #111827;
+      font-weight: 700;
+      text-align: right;
+    }
+    .footer {
+      margin-top: 24px;
+      padding-top: 16px;
+      border-top: 1px solid #e5e7eb;
+      text-align: center;
+      font-size: 0.72rem;
+      color: #9ca3af;
+    }
+    .error {
+      text-align: center;
+      padding: 40px 20px;
+      color: #dc2626;
+    }
+    .farmer-id {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-family: monospace;
+      font-size: 0.82rem;
+      color: #065f46;
+      margin-bottom: 16px;
+      word-break: break-all;
+    }
+  </style>
+</head>
+<body>
+  <div class="card" id="card">
+    <div style="text-align:center; padding: 20px; color: #6b7280;">
+      Loading farmer details...
+    </div>
+  </div>
+
+  <script>
+    function getParam(name) {
+      const url = new URL(window.location.href);
+      return url.searchParams.get(name);
+    }
+
+    function render() {
+      const card = document.getElementById('card');
+      const data = getParam('data');
+
+      if (!data) {
+        card.innerHTML = '<div class="error">❌ Invalid QR Code.<br/>No farmer data found.</div>';
+        return;
+      }
+
+      try {
+        const farmer = JSON.parse(atob(data));
+
+        card.innerHTML = `
+          <div class="header">
+            <div class="logo">🌿</div>
+            <div class="header-text">
+              <h1>AgriWaste Nexus</h1>
+              <p>Government of India Initiative</p>
+            </div>
+          </div>
+
+          <div class="verified-badge">
+            ✅ Verified Farmer ID Card
+          </div>
+
+          <div class="farmer-id">${farmer.id}</div>
+
+          <div class="info-row">
+            <span class="info-label">👤 Full Name</span>
+            <span class="info-value">${farmer.name}</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">📍 District</span>
+            <span class="info-value">${farmer.district}</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">🌾 Main Crop</span>
+            <span class="info-value">${farmer.crop}</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">📐 Land Area</span>
+            <span class="info-value">${farmer.landArea ? farmer.landArea + ' acres' : 'N/A'}</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">📱 Mobile</span>
+            <span class="info-value">+91 ${farmer.mobile}</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">🌍 CO₂ Saved</span>
+            <span class="info-value">${farmer.carbon}</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">👨‍🌾 Role</span>
+            <span class="info-value">${farmer.role === 'farmer' ? '🧑‍🌾 Farmer' : '🏭 Buyer'}</span>
+          </div>
+
+          <div class="footer">
+            🏆 Pune Agri Hackathon 2026 · Ministry of Agriculture & Farmers Welfare
+          </div>
+        `;
+      } catch (e) {
+        card.innerHTML = '<div class="error">❌ Could not read QR Code data.<br/>Please try scanning again.</div>';
+      }
+    }
+
+    render();
+  </script>
+</body>
+</html>
