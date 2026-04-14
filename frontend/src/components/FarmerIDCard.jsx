@@ -33,7 +33,7 @@ export default function FarmerIDCard() {
   };
 
  const farmerEncoded = btoa(unescape(encodeURIComponent(JSON.stringify(farmer))));
-  const qrData = `http://localhost:3000/verify?data=${farmerEncoded}`;
+  const qrData = `${window.location.origin}/verify?data=${farmerEncoded}`;
 
   // ✅ Upload photo
   const handlePhoto = (e) => {
@@ -48,15 +48,20 @@ export default function FarmerIDCard() {
 
   // ✅ Start Camera
   const startCamera = async () => {
-  setCameraOn(true); // render video first
+  try {
+    setCameraOn(true);
 
-  setTimeout(async () => {
-    const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+    setTimeout(async () => {
+      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
 
-    if (videoRef.current) {
-      videoRef.current.srcObject = stream;
-    }
-  }, 100);
+      if (videoRef.current) {
+        videoRef.current.srcObject = stream;
+      }
+    }, 200);
+  } catch (err) {
+    alert("Camera access denied or not supported");
+    console.error(err);
+  }
 };
 
   // ✅ Capture Photo
