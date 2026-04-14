@@ -176,7 +176,8 @@ function MainApp() {
   };
 
   const [page, setPage] = useState('dashboard');
-  const [showChat, setShowChat] = useState(false); // ✅ ADDED
+  const [showChat, setShowChat] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(false); // ✅ ADDED
   const info = PAGE_TITLES[page] || PAGE_TITLES.dashboard;
 
   const renderPage = () => {
@@ -198,13 +199,27 @@ function MainApp() {
     <div className="app-with-header">
       <TopHeader />
       <div className="app-layout">
-        <Sidebar activePage={page} setPage={setPage} />
+        <Sidebar
+          activePage={page}
+          setPage={setPage}
+          sidebarOpen={sidebarOpen}
+          setSidebarOpen={setSidebarOpen}
+        />
         <div className="main-content">
 
           <div className={`page-header ${page === 'dashboard' ? 'no-border-bottom' : ''}`}>
-            <div>
-              <h2>{info.title}</h2>
-              <div className="subtitle">{info.sub}</div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+              {/* ✅ Hamburger button — only shows on mobile */}
+              <button
+                className="hamburger-btn"
+                onClick={() => setSidebarOpen(true)}
+              >
+                ☰
+              </button>
+              <div>
+                <h2>{info.title}</h2>
+                <div className="subtitle">{info.sub}</div>
+              </div>
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
               <LangToggle />
